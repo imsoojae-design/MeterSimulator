@@ -327,15 +327,10 @@ class MeterSimApp:
             mn = self.ent_meter_no.get().strip().replace('-','').replace(' ','')
             if len(mn)==8 and mn.isdigit():
                 self.cfg['meter_no'] = mn[:2]+'-'+mn[2:]
-            rv_str = self.ent_reading.get()
-            self.cfg['reading']  = float(rv_str)
+            self.cfg['reading']  = float(self.ent_reading.get())
             self.cfg['diameter'] = int(self.cb_diam.get())
-            if '.' in rv_str:
-                dec = len(rv_str.split('.')[1])
-                self.cfg['decimal'] = dec
-                self.cb_dec.set(str(dec))
-            else:
-                self.cfg['decimal'] = int(self.cb_dec.get())
+            # 소수점: 콤보박스 선택값 우선 사용
+            self.cfg['decimal']  = int(self.cb_dec.get())
         except: pass
         for key, var in self.alarm_vars.items():
             self.cfg[key] = var.get()
